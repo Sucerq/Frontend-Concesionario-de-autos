@@ -1,0 +1,47 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Concesionario de Autos</mat-card-title>
+      <mat-card-subtitle>Inicia sesión para continuar</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="nombre_usuario" placeholder="Tu usuario" />
+          <mat-icon matPrefix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+          <mat-icon matPrefix>lock</mat-icon>
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        @if (error) {
+          <p class="error-msg">{{ error }}</p>
+        }
+
+        <button
+          mat-flat-button
+          color="primary"
+          class="full-width"
+          type="submit"
+          [disabled]="loading || form.invalid"
+        >
+          @if (loading) {
+            <mat-spinner diameter="20" />
+          } @else {
+            Ingresar
+          }
+        </button>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

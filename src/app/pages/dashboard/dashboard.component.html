@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+  <span>🚗 Concesionario de Autos</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="logout()" title="Cerrar sesión">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/autos" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>directions_car</mat-icon>
+        <span matListItemTitle>Autos</span>
+      </a>
+      <a mat-list-item routerLink="/clientes" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>people</mat-icon>
+        <span matListItemTitle>Clientes</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>
