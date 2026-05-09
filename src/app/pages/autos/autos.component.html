@@ -1,0 +1,194 @@
+<!-- autos.component.html — Vista CRUD de la entidad Auto -->
+
+<div class="page-container">
+
+  <!-- ── Cabecera ───────────────────────────────────────────────────────── -->
+  <div class="page-header">
+    <div class="page-title">
+      <mat-icon class="title-icon">directions_car</mat-icon>
+      <h1>Gestión de Autos</h1>
+    </div>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="abrirFormularioCrear()"
+      [disabled]="mostrarFormulario"
+      id="btn-crear-auto"
+    >
+      <mat-icon>add</mat-icon>
+      Nuevo Auto
+    </button>
+  </div>
+
+  <!-- ── Formulario crear / editar (panel inline) ───────────────────────── -->
+  @if (mostrarFormulario) {
+    <div class="form-panel mat-elevation-z2">
+      <h2 class="form-title">
+        {{ autoEnEdicion ? 'Editar Auto' : 'Registrar Nuevo Auto' }}
+      </h2>
+
+      <form [formGroup]="form" (ngSubmit)="guardar()" class="auto-form">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Marca</mat-label>
+          <input matInput formControlName="Marca" placeholder="Toyota" id="input-marca" />
+          @if (form.get('Marca')?.invalid && form.get('Marca')?.touched) {
+            <mat-error>La marca es obligatoria (máx. 50 caracteres).</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Modelo</mat-label>
+          <input matInput formControlName="Modelo" placeholder="Corolla" id="input-modelo" />
+          @if (form.get('Modelo')?.invalid && form.get('Modelo')?.touched) {
+            <mat-error>El modelo es obligatorio (máx. 50 caracteres).</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de Auto</mat-label>
+          <mat-select formControlName="Tipo_Auto" id="select-tipo-auto">
+            <mat-option value="Sedán">Sedán</mat-option>
+            <mat-option value="SUV">SUV</mat-option>
+            <mat-option value="Pickup">Pickup</mat-option>
+            <mat-option value="Hatchback">Hatchback</mat-option>
+            <mat-option value="Coupé">Coupé</mat-option>
+            <mat-option value="Van">Van</mat-option>
+            <mat-option value="Otro">Otro</mat-option>
+          </mat-select>
+          @if (form.get('Tipo_Auto')?.invalid && form.get('Tipo_Auto')?.touched) {
+            <mat-error>Selecciona un tipo de auto.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Precio (COP)</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="Precio"
+            placeholder="85000000"
+            id="input-precio"
+          />
+          <mat-icon matPrefix>attach_money</mat-icon>
+          @if (form.get('Precio')?.invalid && form.get('Precio')?.touched) {
+            <mat-error>Ingresa un precio válido (mayor a 0).</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="Estado" id="select-estado">
+            <mat-option [value]="true">Disponible</mat-option>
+            <mat-option [value]="false">No disponible</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button mat-stroked-button type="button" (click)="cancelar()" id="btn-cancelar">
+            <mat-icon>close</mat-icon>
+            Cancelar
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            id="btn-guardar"
+          >
+            <mat-icon>save</mat-icon>
+            {{ autoEnEdicion ? 'Actualizar' : 'Guardar' }}
+          </button>
+        </div>
+
+      </form>
+    </div>
+  }
+
+  <!-- ── Tabla de autos ─────────────────────────────────────────────────── -->
+  @if (cargando) {
+    <div class="spinner-container">
+      <mat-spinner diameter="48" />
+      <p>Cargando autos...</p>
+    </div>
+  } @else if (autos.length === 0) {
+    <div class="empty-state">
+      <mat-icon class="empty-icon">directions_car</mat-icon>
+      <p>No hay autos registrados. ¡Crea el primero!</p>
+    </div>
+  } @else {
+    <div class="table-container mat-elevation-z2">
+      <table mat-table [dataSource]="autos" class="autos-table" id="tabla-autos">
+
+        <!-- Columna Marca -->
+        <ng-container matColumnDef="Marca">
+          <th mat-header-cell *matHeaderCellDef>Marca</th>
+          <td mat-cell *matCellDef="let auto">
+            <strong>{{ auto.Marca }}</strong>
+          </td>
+        </ng-container>
+
+        <!-- Columna Modelo -->
+        <ng-container matColumnDef="Modelo">
+          <th mat-header-cell *matHeaderCellDef>Modelo</th>
+          <td mat-cell *matCellDef="let auto">{{ auto.Modelo }}</td>
+        </ng-container>
+
+        <!-- Columna Tipo -->
+        <ng-container matColumnDef="Tipo_Auto">
+          <th mat-header-cell *matHeaderCellDef>Tipo</th>
+          <td mat-cell *matCellDef="let auto">
+            <span class="tipo-chip">{{ auto.Tipo_Auto }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Columna Precio -->
+        <ng-container matColumnDef="Precio">
+          <th mat-header-cell *matHeaderCellDef>Precio</th>
+          <td mat-cell *matCellDef="let auto">
+            {{ auto.Precio | currency:'COP':'symbol':'1.0-0' }}
+          </td>
+        </ng-container>
+
+        <!-- Columna Estado -->
+        <ng-container matColumnDef="Estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let auto">
+            <span [class]="auto.Estado ? 'badge-disponible' : 'badge-no-disponible'">
+              {{ auto.Estado ? 'Disponible' : 'No disponible' }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Columna Acciones -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let auto">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="abrirFormularioEditar(auto)"
+              matTooltip="Editar auto"
+              [id]="'btn-editar-' + auto.id_Auto"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="eliminar(auto)"
+              matTooltip="Eliminar auto"
+              [id]="'btn-eliminar-' + auto.id_Auto"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </div>
+  }
+
+</div>

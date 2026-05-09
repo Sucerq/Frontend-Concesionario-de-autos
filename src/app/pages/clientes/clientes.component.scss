@@ -1,14 +1,12 @@
-// autos.component.scss — Estilos del módulo de gestión de Autos
+// clientes.component.scss — Estilos del módulo de gestión de Clientes
 
 // ── Variables ──────────────────────────────────────────────────────────────
 $primary: #1565c0;
 $danger: #c62828;
 $success: #2e7d32;
-$warning: #f57f17;
 $surface: #ffffff;
 $bg: #f4f6f9;
 $border-radius: 10px;
-$shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 
 // ── Contenedor principal ───────────────────────────────────────────────────
 .page-container {
@@ -17,7 +15,7 @@ $shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   min-height: 100%;
 }
 
-// ── Cabecera de la página ──────────────────────────────────────────────────
+// ── Cabecera ───────────────────────────────────────────────────────────────
 .page-header {
   display: flex;
   align-items: center;
@@ -59,7 +57,7 @@ $shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   }
 }
 
-.auto-form {
+.cliente-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
@@ -92,13 +90,13 @@ $shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   background: $surface;
 }
 
-.autos-table {
+.clientes-table {
   width: 100%;
 
   th.mat-header-cell {
     font-weight: 700;
     color: #37474f;
-    background-color: #e8eaf6;
+    background-color: #e8f5e9;
     font-size: 0.82rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -112,42 +110,42 @@ $shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   }
 
   tr.mat-row:hover {
-    background-color: #f5f7ff;
+    background-color: #f5fff7;
     transition: background-color 0.15s ease;
   }
 }
 
-// ── Chips de tipo ──────────────────────────────────────────────────────────
+// ── Link de email ──────────────────────────────────────────────────────────
+.email-link {
+  color: $primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ── Chips de tipo de cliente ───────────────────────────────────────────────
 .tipo-chip {
-  background-color: #e3f2fd;
-  color: #0d47a1;
   padding: 3px 10px;
   border-radius: 20px;
   font-size: 0.78rem;
   font-weight: 600;
-}
 
-// ── Badges de estado ───────────────────────────────────────────────────────
-.badge-disponible {
-  display: inline-flex;
-  align-items: center;
-  background-color: #e8f5e9;
-  color: $success;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 0.78rem;
-  font-weight: 600;
-}
+  &.tipo-natural {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+  }
 
-.badge-no-disponible {
-  display: inline-flex;
-  align-items: center;
-  background-color: #ffebee;
-  color: $danger;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 0.78rem;
-  font-weight: 600;
+  &.tipo-jurídico {
+    background-color: #fff3e0;
+    color: #e65100;
+  }
+
+  &.tipo-vip {
+    background-color: #fce4ec;
+    color: #880e4f;
+  }
 }
 
 // ── Estado vacío ───────────────────────────────────────────────────────────
@@ -171,7 +169,7 @@ $shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   }
 }
 
-// ── Spinner de carga ───────────────────────────────────────────────────────
+// ── Spinner ────────────────────────────────────────────────────────────────
 .spinner-container {
   display: flex;
   flex-direction: column;
@@ -182,7 +180,7 @@ $shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   color: #78909c;
 }
 
-// ── Snack-bars globales (aplicados via panelClass) ─────────────────────────
+// ── Snack-bars ─────────────────────────────────────────────────────────────
 :host ::ng-deep .snack-success {
   background-color: $success;
   color: white;

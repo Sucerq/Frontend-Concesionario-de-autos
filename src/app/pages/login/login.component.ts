@@ -39,9 +39,10 @@ export class LoginComponent {
   ) {
     this.form = this.fb.group({
       nombre_usuario: ['', Validators.required],
-      password: ['', Validators.required],
+      contraseña: ['', Validators.required],
     });
   }
+
 
   onSubmit(): void {
     if (this.form.invalid) return;
