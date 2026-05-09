@@ -1,0 +1,29 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 16px;
+
+  mat-card-header {
+    margin-bottom: 24px;
+    mat-card-title { font-size: 22px; }
+  }
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.error-msg {
+  color: var(--mat-sys-error);
+  font-size: 13px;
+  margin: -4px 0 12px;
+}
