@@ -1,0 +1,194 @@
+// autos.component.scss — Estilos del módulo de gestión de Autos
+
+// ── Variables ──────────────────────────────────────────────────────────────
+$primary: #1565c0;
+$danger: #c62828;
+$success: #2e7d32;
+$warning: #f57f17;
+$surface: #ffffff;
+$bg: #f4f6f9;
+$border-radius: 10px;
+$shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+// ── Contenedor principal ───────────────────────────────────────────────────
+.page-container {
+  padding: 28px 32px;
+  background-color: $bg;
+  min-height: 100%;
+}
+
+// ── Cabecera de la página ──────────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  .page-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0;
+      color: #1a237e;
+    }
+
+    .title-icon {
+      font-size: 2rem;
+      color: $primary;
+    }
+  }
+}
+
+// ── Panel de formulario ────────────────────────────────────────────────────
+.form-panel {
+  background: $surface;
+  border-radius: $border-radius;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  border-left: 4px solid $primary;
+
+  .form-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 20px;
+    color: $primary;
+  }
+}
+
+.auto-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+
+  button {
+    min-width: 130px;
+  }
+}
+
+// ── Tabla ──────────────────────────────────────────────────────────────────
+.table-container {
+  border-radius: $border-radius;
+  overflow: hidden;
+  background: $surface;
+}
+
+.autos-table {
+  width: 100%;
+
+  th.mat-header-cell {
+    font-weight: 700;
+    color: #37474f;
+    background-color: #e8eaf6;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 14px 16px;
+  }
+
+  td.mat-cell {
+    padding: 12px 16px;
+    font-size: 0.92rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  tr.mat-row:hover {
+    background-color: #f5f7ff;
+    transition: background-color 0.15s ease;
+  }
+}
+
+// ── Chips de tipo ──────────────────────────────────────────────────────────
+.tipo-chip {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+// ── Badges de estado ───────────────────────────────────────────────────────
+.badge-disponible {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e8f5e9;
+  color: $success;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge-no-disponible {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffebee;
+  color: $danger;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+// ── Estado vacío ───────────────────────────────────────────────────────────
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #90a4ae;
+  gap: 12px;
+
+  .empty-icon {
+    font-size: 4rem;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+
+// ── Spinner de carga ───────────────────────────────────────────────────────
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+  color: #78909c;
+}
+
+// ── Snack-bars globales (aplicados via panelClass) ─────────────────────────
+:host ::ng-deep .snack-success {
+  background-color: $success;
+  color: white;
+}
+
+:host ::ng-deep .snack-error {
+  background-color: $danger;
+  color: white;
+}
