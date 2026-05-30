@@ -50,4 +50,25 @@ export class ApiService {
   deleteCliente(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/clientes/${id}`);
   }
+
+  // ── Sucursales ─────────────────────────────────────────────────────────────
+  getSucursales(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/sucursales`);
+  }
+
+  getSucursal(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/sucursales/${id}`);
+  }
+
+  createSucursal(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/sucursales`, data);
+  }
+
+  updateSucursal(id: string, data: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/sucursales/${id}`, data);
+  }
+
+  deleteSucursal(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/sucursales/${id}`);
+  }
 }
