@@ -10,7 +10,7 @@ principales del dominio.
 ## Video explicativo
 
 > 🎥 **[Ver video en YouTube / Drive](https://youtu.be/ENLACE_PENDIENTE)**
->
+>🎥 **[Ver video en YouTube / Drive](https://drive.google.com/file/d/1xw4sU13kHu6_7QLanL44wA6xuaKkk-HS/view?usp=sharing&t=1.94)**
 > El video muestra: arranque del backend y frontend, flujo de login,
 > demostración de CRUD en Autos y Clientes, y uso del token JWT en las
 > peticiones HTTP.
