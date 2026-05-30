@@ -1,0 +1,105 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="page-title">
+      <mat-icon class="title-icon">store</mat-icon>
+      <h1>Gestión de Sucursales</h1>
+    </div>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="abrirFormularioCrear()"
+      [disabled]="mostrarFormulario"
+    >
+      <mat-icon>add</mat-icon>
+      Nueva Sucursal
+    </button>
+  </div>
+
+  @if (mostrarFormulario) {
+    <div class="form-panel mat-elevation-z2">
+      <h2 class="form-title">
+        {{ sucursalEnEdicion ? 'Editar Sucursal' : 'Registrar Nueva Sucursal' }}
+      </h2>
+      <form [formGroup]="form" (ngSubmit)="guardar()" class="auto-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="Nombre" placeholder="Sucursal Centro" />
+          @if (form.get('Nombre')?.invalid && form.get('Nombre')?.touched) {
+            <mat-error>El nombre es obligatorio.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="Telefono" placeholder="3001234567" />
+          @if (form.get('Telefono')?.invalid && form.get('Telefono')?.touched) {
+            <mat-error>El teléfono es obligatorio.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Dirección</mat-label>
+          <input matInput formControlName="Direccion" placeholder="Calle Falsa 123" />
+          @if (form.get('Direccion')?.invalid && form.get('Direccion')?.touched) {
+            <mat-error>La dirección es obligatoria.</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button mat-stroked-button type="button" (click)="cancelar()">
+            <mat-icon>close</mat-icon> Cancelar
+          </button>
+          <button mat-flat-button color="primary" type="submit">
+            <mat-icon>save</mat-icon> {{ sucursalEnEdicion ? 'Actualizar' : 'Guardar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+
+  @if (cargando) {
+    <div class="spinner-container">
+      <mat-spinner diameter="48" />
+      <p>Cargando sucursales...</p>
+    </div>
+  } @else if (sucursales.length === 0) {
+    <div class="empty-state">
+      <mat-icon class="empty-icon">store</mat-icon>
+      <p>No hay sucursales registradas. ¡Crea la primera!</p>
+    </div>
+  } @else {
+    <div class="table-container mat-elevation-z2">
+      <table mat-table [dataSource]="sucursales" class="autos-table">
+        <ng-container matColumnDef="Nombre">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let sucursal"><strong>{{ sucursal.Nombre }}</strong></td>
+        </ng-container>
+
+        <ng-container matColumnDef="Telefono">
+          <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+          <td mat-cell *matCellDef="let sucursal">{{ sucursal.Telefono }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Direccion">
+          <th mat-header-cell *matHeaderCellDef>Dirección</th>
+          <td mat-cell *matCellDef="let sucursal">{{ sucursal.Direccion }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let sucursal">
+            <button mat-icon-button color="primary" (click)="abrirFormularioEditar(sucursal)" matTooltip="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="eliminar(sucursal)" matTooltip="Eliminar">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  }
+</div>

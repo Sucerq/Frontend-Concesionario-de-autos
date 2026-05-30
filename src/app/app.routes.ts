@@ -50,6 +50,14 @@ export const routes: Routes = [
           ),
       },
       {
+        // Módulo de gestión de sucursales (CRUD completo).
+        path: 'sucursales',
+        loadComponent: () =>
+          import('./pages/sucursales/sucursales.component').then(
+            (m) => m.SucursalesComponent
+          ),
+      },
+      {
         // Redirección por defecto al módulo de autos.
         path: '',
         redirectTo: 'autos',
