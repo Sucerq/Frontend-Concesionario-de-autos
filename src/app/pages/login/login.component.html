@@ -2,7 +2,9 @@
   <mat-card class="login-card">
     <mat-card-header>
       <mat-card-title>Concesionario de Autos</mat-card-title>
-      <mat-card-subtitle>Inicia sesión para continuar</mat-card-subtitle>
+      <mat-card-subtitle>
+        Inicia sesión para continuar
+      </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -10,16 +12,34 @@
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Usuario</mat-label>
-          <input matInput formControlName="nombre_usuario" placeholder="Tu usuario" />
+          <input
+            matInput
+            formControlName="nombre_usuario"
+            placeholder="Tu usuario"
+          />
           <mat-icon matPrefix>person</mat-icon>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Contraseña</mat-label>
-          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="contraseña"
+          />
+
           <mat-icon matPrefix>lock</mat-icon>
-          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
-            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hidePassword = !hidePassword"
+          >
+            <mat-icon>
+              {{ hidePassword ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
           </button>
         </mat-form-field>
 
@@ -35,7 +55,7 @@
           [disabled]="loading || form.invalid"
         >
           @if (loading) {
-            <mat-spinner diameter="20" />
+            <mat-spinner diameter="20"></mat-spinner>
           } @else {
             Ingresar
           }

@@ -127,14 +127,17 @@ export class AutosComponent implements OnInit {
    * @returns FormGroup con campos Marca, Modelo, Tipo_Auto y Precio.
    */
   private _construirFormulario(): FormGroup {
-    return this.fb.group({
-      Marca: ['', [Validators.required, Validators.maxLength(50)]],
-      Modelo: ['', [Validators.required, Validators.maxLength(50)]],
-      Tipo_Auto: ['', [Validators.required, Validators.maxLength(50)]],
-      Precio: [null, [Validators.required, Validators.min(0)]],
-      Estado: [true],
-    });
-  }
+  return this.fb.group({
+    Marca: ['', [Validators.required]],
+    Modelo: ['', [Validators.required]],
+    Tipo_Auto: ['', [Validators.required]],
+    Precio: [null, [Validators.required]],
+    Estado: [true],
+
+    id_Sucursal: ['', Validators.required],
+    id_Compra: ['', Validators.required],
+  });
+}
 
   /**
    * Muestra un snack-bar con el mensaje indicado.
@@ -218,7 +221,13 @@ export class AutosComponent implements OnInit {
       return;
     }
 
-    const datos = this.form.value;
+const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+const idUsuario = usuario.id_usuario;
+
+const datos = {
+  ...this.form.value,
+  id_usuario_crea: idUsuario,
+};
 
     if (this.autoEnEdicion) {
       // Modo edición
